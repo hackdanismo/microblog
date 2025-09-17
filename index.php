@@ -2,7 +2,7 @@
 // Database host (usually localhost)
 $host = "localhost";
 // Database name
-$db = "";
+$db = "db-microblog";
 // Database username
 $user = "username";
 // Database password
