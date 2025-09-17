@@ -27,4 +27,20 @@ try {
 } catch (PDOException $e) {
     echo "Connection to database failed: " . $e->getMessage();
 }
+
+// Handle form submissions to add a post to the database table
+if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST["content"])) {
+    $content = trim($_POST["content"]);
+    $user_id = 1;   // Static user for now
+
+    $stmt = $pdo->prepare("INSERT INTO posts (user_id, content) VALUES (?, ?)");
+    $stmt->execute([$user_id, $content]);
+
+    echo "<p>Post added successfully.<p>";
+}
 ?>
+
+<form method="POST">
+    <textarea name="content" rows="4" cols="50" placeholder="What's on your mind?" required></textarea><br>
+    <button type="submit">Post</button>
+</form>
