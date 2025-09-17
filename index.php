@@ -44,3 +44,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST["content"])) {
     <textarea name="content" rows="4" cols="50" placeholder="What's on your mind?" required></textarea><br>
     <button type="submit">Post</button>
 </form>
+
+<?php
+// Fetch all posts from the database
+$stmt = $pdo->query("SELECT id, user_id, content, created_at FROM posts ORDER BY created_at DESC");
+
+echo "<h2>All Posts</h2>";
+
+while ($row = $stmt->fetch()) {
+    echo "<p>User " . htmlspecialchars($row["user_id"]) . "</p>";
+    echo "<p>" . nl2br(htmlspecialchars($row["content"])) . "</p>";
+    echo "<p>Posted on: " . htmlspecialchars($row["created_at"]) . "</p>";
+}
+?>
